@@ -5,6 +5,7 @@ metadata:
   namespace: test-gtw
   labels:
     app.kubernetes.io/part-of: test-run-gateway
+    backstage.io/kubernetes-id: test-httproute
   annotations:
     backstage.io/catalog-entity: resource:default/test-httproute
 spec:
