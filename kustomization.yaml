@@ -1,4 +1,7 @@
-# Flux Kustomize root for dump-p (bootstrap)
+# Root Kustomize entry for https://github.com/SoubhagyaranjanDas/dump-p (Flux path: ./)
+# Flux runs `kustomize build` here — an empty resources list applies nothing.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources: []
+resources:
+  - gateways
+  - routes
