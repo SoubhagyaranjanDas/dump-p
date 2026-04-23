@@ -5,6 +5,7 @@ metadata:
   namespace: test-gtw
   labels:
     app.kubernetes.io/part-of: test-run-gateway
+  annotations:
     backstage.io/catalog-entity: resource:default/httpbin-gtw
 spec:
   gatewayClassName: istio
