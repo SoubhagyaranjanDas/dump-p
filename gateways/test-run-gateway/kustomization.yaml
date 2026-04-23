@@ -1,0 +1,5 @@
+# One folder per system name (matches Backstage deploy path gateways/<system>/)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - httpbin-gtw.yaml
