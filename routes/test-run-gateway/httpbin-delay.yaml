@@ -1,0 +1,24 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httpbin-delay
+  namespace: test-gtw
+  labels:
+    app.kubernetes.io/part-of: test-run-gateway
+    # Matches catalog Resource metadata.annotations['backstage.io/kubernetes-id'].
+    backstage.io/kubernetes-id: httpbin-delay
+  annotations:
+    backstage.io/catalog-entity: resource:default/httpbin-delay
+spec:
+  parentRefs:
+    - name: gateway-2
+      namespace: envoy-gateway-system
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /delay
+      backendRefs:
+        - name: httpbin
+          namespace: test-gtw
+          port: 8000
