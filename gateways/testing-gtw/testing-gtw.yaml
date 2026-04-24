@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: testing-gtw
+  namespace: test-gtw
+  labels:
+    app.kubernetes.io/part-of: testing-gtw
+    # Matches catalog Resource metadata.annotations['backstage.io/kubernetes-id']
+    # so the entity Kubernetes tab can find this Gateway (valid label value).
+    backstage.io/kubernetes-id: testing-gtw
+  annotations:
+    # Full catalog ref cannot be a label (':' is invalid in label values).
+    backstage.io/catalog-entity: resource:default/testing-gtw
+spec:
+  gatewayClassName: istio
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
