@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: envoy-gateway-1
+  namespace: envoy-gateway-system
+  labels:
+    app.kubernetes.io/part-of: testing-gtw
+    # Matches catalog Resource metadata.annotations['backstage.io/kubernetes-id']
+    # so the entity Kubernetes tab can find this Gateway (valid label value).
+    backstage.io/kubernetes-id: envoy-gateway-1
+  annotations:
+    # Full catalog ref cannot be a label (':' is invalid in label values).
+    backstage.io/catalog-entity: resource:default/envoy-gateway-system.envoy-gateway-1
+spec:
+  gatewayClassName: envoy-gateway
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
