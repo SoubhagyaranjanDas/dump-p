@@ -1,0 +1,24 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httproute-envoy
+  namespace: default
+  labels:
+    app.kubernetes.io/part-of: testing-gtw
+    backstage.io/kubernetes-id: httproute-envoy
+  annotations:
+    backstage.io/catalog-entity: resource:default/httproute-envoy
+spec:
+  parentRefs:
+    - name: envoy-gateway-1
+      namespace: envoy-gateway-system
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: "/status"
+          method: GET
+      backendRefs:
+        - name: httpbin
+          namespace: default
+          port: 8080
